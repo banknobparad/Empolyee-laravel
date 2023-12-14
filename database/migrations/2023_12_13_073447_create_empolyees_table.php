@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('empolyees', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unique();
+            $table->integer('user_id')->unique()->nullable();
             $table->string('name');
             $table->string('tel');
             $table->string('card_num');
