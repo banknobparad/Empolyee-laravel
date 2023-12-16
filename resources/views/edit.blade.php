@@ -4,7 +4,7 @@
 
     <h2 class="text text-center py-3">แก้ไขข้อมูล</h2>
 
-    <form action="{{ route('update' , $edit->id)}}" method="POST">
+    <form action="{{ route('update', $edit->id) }}" method="POST">
 
         @csrf
 
@@ -23,14 +23,15 @@
 
             <div class="col-md-8 col-10">
                 <label for="name" class="form-label">ชื่อ</label>
-               
+
                 <div class="input-group">
                     <input type="text" name="name" id="nameInput"
-                    class="form-control @error('name') is-invalid @enderror @if (!empty(old('name'))) is-valid @endif"
-                    value="{{ old('name', $edit->name) }}" data-old-value="{{ old('title') }}">
-                    <button type="button" onclick="myFunction()" class="btn btn-primary form-control-feedback"><i class="bi bi-clipboard"></i></button>
+                        class="form-control @error('name') is-invalid @enderror @if (!empty(old('name'))) is-valid @endif"
+                        value="{{ old('name', $edit->name) }}" data-old-value="{{ old('title') }}">
+                    <button type="button" onclick="myFunction()" class="btn btn-primary form-control-feedback"><i
+                            class="bi bi-clipboard"></i></button>
                 </div>
-               
+
                 @error('name')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -39,10 +40,11 @@
 
             <div class="col-10">
                 <label for="tel" class="form-label">รหัสพนักงาน</label>
-                    <div class="input-group">
-                        <input type="text" value="{{ old('user_id', $edit->user_id) }}" name="user_id" class="form-control">
-                        <button type="button" onclick="myFunctions()" class="btn btn-primary form-control-feedback"><i class="bi bi-clipboard"></i></button>
-                    </div>
+                <div class="input-group">
+                    <input type="text" value="{{ old('user_id', $edit->user_id) }}" name="user_id" class="form-control">
+                    <button type="button" onclick="myFunctions()" class="btn btn-primary form-control-feedback"><i
+                            class="bi bi-clipboard"></i></button>
+                </div>
             </div>
 
 
@@ -75,19 +77,17 @@
             <div class="col-10">
                 <label for="depant_id" class="form-label">ตำแหน่ง</label>
                 <select name="depant_id" class="form-control">
-                    <option value="" selected disabled>{{ $edit->depant_id }}</option>
+                    <option value="" selected disabled>กรุณาเลือก</option>
                     @foreach ($depant as $item)
                         <option value="{{ $item->id }}" {{ session('depant_id') == $item->id ? 'selected' : '' }}>
                             {{ $item->name }}
                         </option>
                     @endforeach
                 </select>
+                @error('depant_id')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
-
-
-            @error('depant_id')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
 
 
 
@@ -95,7 +95,7 @@
             <div class="col-10">
                 <label for="branch_id" class="form-label">สาขา</label>
                 <select name="branch_id" class="form-control">
-                    <option value="" selected disabled>เลือกสาขา</option>
+                    <option value="" selected disabled>กรุณาเลือก</option>
                     @foreach ($depant as $item)
                         <option value="{{ $item->name }}" {{ old('branch_id') == $item->id ? 'selected' : '' }}>
                             {{ $item->name }}
