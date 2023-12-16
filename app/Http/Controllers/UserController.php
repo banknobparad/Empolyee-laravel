@@ -81,7 +81,7 @@ class UserController extends Controller
     public function show()
     {
         $empolyees = empolyee::all();
-        return view('show', compact('empolyees'));
+        return view('show', compact('empolyees')); //oder by 
     }
 
     public function edit($id)
@@ -90,7 +90,7 @@ class UserController extends Controller
         $branches = Branch::all();
 
         $edit = empolyee::with('branch', 'depant')->findOrFail($id);
-        // dd($edit);
+        // dd($edit->toArray());
 
         return view('edit', compact('edit', 'branches', 'depant'));
     }
@@ -135,6 +135,7 @@ class UserController extends Controller
         $input = $request->all();
         unset($input['_token']);
 
+        // dd($input);
 
 
         $input['start_time'] = Carbon::createFromFormat('d/m/Y', $request->start_time)->format('Y-m-d');

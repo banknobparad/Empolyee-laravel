@@ -63,7 +63,7 @@
 
             <div class="col-10">
                 <label for="depant_id" class="form-label">ตำแหน่ง</label>
-                <select name="depant_id" class="form-control">
+                <select name="depant_id" class="form-control {{ old('depant_id') && $errors->has('depant_id') ? 'is-invalid' : (old('depant_id') ? 'is-valid' : '') }}">
                     <option value="" selected disabled>เลือกตำแหน่ง</option>
                     @foreach ($depant as $item)
                         <option value="{{ $item->name }}" {{ old('depant_id') == $item->id ? 'selected' : '' }}>
@@ -71,18 +71,21 @@
                         </option>
                     @endforeach
                 </select>
+            
+                @error('depant_id')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
+            
 
-            @error('depant_id')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
+
 
 
 
 
             <div class="col-10">
                 <label for="branch_id" class="form-label">สาขา</label>
-                <select name="branch_id" class="form-control">
+                <select name="branch_id" class="form-control {{ old('branch_id') && $errors->has('branch_id') ? 'is-invalid' : (old('branch_id') ? 'is-valid' : '') }}">
                     <option value="" selected disabled>เลือกสาขา</option>
                     @foreach ($depant as $item)
                         <option value="{{ $item->name }}" {{ old('branch_id') == $item->id ? 'selected' : '' }}>
@@ -90,31 +93,33 @@
                         </option>
                     @endforeach
                 </select>
+            
                 @error('branch_id')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
+            
 
 
             <div class="col-10">
                 <label for="address" class="form-label">ที่อยู่</label>
-                <input type="text" value="{{ old('address') }}" name="address" class="form-control">
-
+                <input type="text" value="{{ old('address') }}" name="address" class="form-control {{ $errors->has('address') ? 'is-invalid' : ($errors->any() ? 'is-valid' : '') }}">
+            
                 @error('address')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-
             </div>
 
 
             <div class="col-10">
                 <label for="start_time" class="form-label">วันที่เริ่มงาน</label>
-                <input type="text" name="start_time" class="form-control datepicker" value="{{ old('start_time') }}">
-
+                <input type="text" name="start_time" class="form-control datepicker {{ $errors->has('start_time') ? 'is-invalid' : (old('start_time') ? 'is-valid' : '') }}" value="{{ old('start_time') }}">
+            
                 @error('start_time')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
+            
 
 
 

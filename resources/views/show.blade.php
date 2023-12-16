@@ -41,7 +41,7 @@
 table#myTable {
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid #ff0000;
+    border: 1px solid #000000;
   } 
   
   thead th {

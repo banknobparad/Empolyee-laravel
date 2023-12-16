@@ -29,7 +29,7 @@
                         <a class="nav-link" href="/">หน้าแรก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ 'showcreate' }}">เพิ่มข้อมูล</a>
+                        <a class="nav-link" href="{{ route ('showcreate') }}">เพิ่มข้อมูล</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/">...</a>
