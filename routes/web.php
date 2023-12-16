@@ -14,7 +14,12 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [App\Http\Controllers\UserController::class,'index'])->name('home');
+Route::get('/', [App\Http\Controllers\UserController::class,'show'])->name('home');
 
 Route::post('/create', [App\Http\Controllers\UserController::class, 'create'])->name('create');
+
 Route::get('/showcreate', [App\Http\Controllers\UserController::class, 'showcreate'])->name('showcreate');
+
+Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
+
+

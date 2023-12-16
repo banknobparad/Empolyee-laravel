@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('empolyees', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unique()->nullable();
-            $table->string('name');
-            $table->string('tel');
-            $table->string('card_num');
+            $table->string('name')->nullable();
+            $table->string('tel')->nullable();
+            $table->string('card_num')->nullable();
 
 
-            $table->string('depant_id');
-            $table->string('branch_id');
+            $table->string('depant_id')->nullable();
+            $table->string('branch_id')->nullable();
 
-            $table->datetime('start_time');
-            $table->text('address');
+            $table->datetime('start_time')->nullable();
+            $table->text('address')->nullable();
             
             $table->timestamps();
         });
