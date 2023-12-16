@@ -83,7 +83,7 @@
             <div class="col-10">
                 <label for="branch_id" class="form-label">สาขา</label>
                 <select name="branch_id" class="form-control">
-                    <option value="" selected disabled>เลือกตำแหน่ง</option>
+                    <option value="" selected disabled>เลือกสาขา</option>
                     @foreach ($depant as $item)
                         <option value="{{ $item->name }}" {{ old('branch_id') == $item->id ? 'selected' : '' }}>
                             {{ $item->name }}

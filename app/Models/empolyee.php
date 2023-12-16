@@ -9,6 +9,9 @@ class empolyee extends Model
 {
     protected $guarded =[];
 
+    // protected $fillable =['_token'];
+
+    
     function branch()
     {
         // return $this->hasMany(Order::class);

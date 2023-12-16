@@ -65,7 +65,7 @@ class UserController extends Controller
 
         empolyee::create($input);
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Product deleted successfully');
     }
 
 
@@ -88,11 +88,59 @@ class UserController extends Controller
     {
         $depant = Depant::all();
         $branches = Branch::all();
+
         $edit = empolyee::with('branch', 'depant')->findOrFail($id);
         // dd($edit);
-        return view('edit', compact('edit','branches', 'depant'));
+
+        return view('edit', compact('edit', 'branches', 'depant'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'name' => 'required',
+                'card_num' => 'required|numeric|regex:/^\d{13}$/',
+                'tel' => 'required|numeric|regex:/^\d{10}$/|',
+                'depant_id' => 'required',
+                'branch_id' => 'required',
+                'start_time' => 'required',
+                'address' => 'required',
+            ],
 
+            [
+                'name.required' => 'กรุณาป้อนชื่อ',
+
+                'card_num.required' => 'กรุณาป้อนเลขบัตรประชาชน',
+                'card_num.numeric' => 'กรุณาป้อนเลขบัตรประชาชนเป็นตัวเลขเท่านั้น',
+                'card_num.regex' => 'กรุณาป้อนเลขบัตรประชาชนเป็น 13 ตัวอักษร',
+
+
+                'tel.required' => 'กรุณาป้อนเบอร์โทร',
+                'tel.numeric' => 'กรุณาป้อนเบอร์โทรเป็นตัวเลขเท่านั้น',
+                'tel.regex' => 'กรุณาป้อนเบอร์โทรเป็น 10 ตัวอักษร',
+
+                'depant_id.required' => 'กรุณาป้อนตำแหน่ง',
+
+                'branch_id.required' => 'กรุณาป้อนสาขา',
+
+                'start_time.required' => 'กรุณาป้อนเวลาเริ่มงาน',
+
+                'address.required' => 'กรุณาป้อนที่อยู่',
+
+
+            ]
+        );
+
+        $input = $request->all();
+        unset($input['_token']);
+
+
+
+        $input['start_time'] = Carbon::createFromFormat('d/m/Y', $request->start_time)->format('Y-m-d');
     
+        DB::table('empolyees')->where('id', $id)->update($input);
+    
+        return view('home');
+    }
 }

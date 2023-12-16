@@ -22,4 +22,6 @@ Route::get('/showcreate', [App\Http\Controllers\UserController::class, 'showcrea
 
 Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
 
+Route::post('/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('update');
+
 
