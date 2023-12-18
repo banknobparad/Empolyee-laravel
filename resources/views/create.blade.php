@@ -3,11 +3,6 @@
 @section('content')
 
     <h2 class="text text-center py-3">เพิ่มข้อมูล</h2>
-    {{-- @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <div>{{ $error }}</div>
-        @endforeach
-    @endif --}}
 
     <form action="{{ route('create') }}" method="post">
         @csrf
@@ -63,10 +58,11 @@
 
             <div class="col-10">
                 <label for="depant_id" class="form-label">ตำแหน่ง</label>
-                <select name="depant_id" class="form-control {{ old('depant_id') && $errors->has('depant_id') ? 'is-invalid' : (old('depant_id') ? 'is-valid' : '') }}">
+                <select name="depant_id" class="form-control 
+                    {{ $errors->has('depant_id') ? 'is-invalid' : (old('depant_id') ? 'is-valid' : '') }}">
                     <option value="" selected disabled>เลือกตำแหน่ง</option>
                     @foreach ($depant as $item)
-                        <option value="{{ $item->name }}" {{ old('depant_id') == $item->id ? 'selected' : '' }}>
+                        <option value="{{ $item->name }}" {{ old('depant_id') == $item->name ? 'selected' : '' }}>
                             {{ $item->name }}
                         </option>
                     @endforeach
@@ -77,6 +73,9 @@
                 @enderror
             </div>
             
+            
+            
+            
 
 
 
@@ -85,10 +84,11 @@
 
             <div class="col-10">
                 <label for="branch_id" class="form-label">สาขา</label>
-                <select name="branch_id" class="form-control {{ old('branch_id') && $errors->has('branch_id') ? 'is-invalid' : (old('branch_id') ? 'is-valid' : '') }}">
+                <select name="branch_id" class="form-control 
+                    {{ $errors->has('branch_id') ? 'is-invalid' : (old('branch_id') ? 'is-valid' : '') }}">
                     <option value="" selected disabled>เลือกสาขา</option>
                     @foreach ($depant as $item)
-                        <option value="{{ $item->name }}" {{ old('branch_id') == $item->id ? 'selected' : '' }}>
+                        <option value="{{ $item->name }}" {{ old('branch_id') == $item->name ? 'selected' : '' }}>
                             {{ $item->name }}
                         </option>
                     @endforeach
@@ -98,6 +98,9 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
+            
+            
+
             
 
 

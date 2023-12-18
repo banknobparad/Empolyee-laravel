@@ -28,6 +28,7 @@
                     <input type="text" name="name" id="nameInput"
                         class="form-control @error('name') is-invalid @enderror @if (!empty(old('name'))) is-valid @endif"
                         value="{{ old('name', $edit->name) }}" data-old-value="{{ old('title') }}">
+                        
                     <button type="button" onclick="myFunction()" class="btn btn-primary form-control-feedback">
                         <i
                             class="bi bi-clipboard">

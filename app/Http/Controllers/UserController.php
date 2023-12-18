@@ -12,21 +12,24 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+
 class UserController extends Controller
 {
 
     public function index()
     {
+
         return view('home');
     }
 
 
+    
 
     public function create(Request $request)
     {
         $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required|regex:/^[a-zA-Zก-๏\s]+$/u',
                 'card_num' => 'required|numeric|regex:/^\d{13}$/',
                 'tel' => 'required|numeric|regex:/^\d{10}$/|',
                 'depant_id' => 'required',
@@ -37,6 +40,7 @@ class UserController extends Controller
 
             [
                 'name.required' => 'กรุณาป้อนชื่อ',
+                'name.regex' => 'กรุณาป้อนชื่อเป็นตัวหนังสือเท่านั้น',
 
                 'card_num.required' => 'กรุณาป้อนเลขบัตรประชาชน',
                 'card_num.numeric' => 'กรุณาป้อนเลขบัตรประชาชนเป็นตัวเลขเท่านั้น',
@@ -54,20 +58,31 @@ class UserController extends Controller
                 'start_time.required' => 'กรุณาป้อนเวลาเริ่มงาน',
 
                 'address.required' => 'กรุณาป้อนที่อยู่',
-
-
             ]
         );
 
-        $input = $request->all();
+        $input = [
+            'name' => $request->name,
+            'card_num' => $request->card_num,
+            'user_id' => $request->user_id,
+            'tel' => $request->tel,
+            'depant_id' => $request->depant_id,
+            'branch_id' => $request->branch_id,
+            'start_time' => $request->start_time,
+            'address' => $request->address,
+
+        ];
 
         $input['start_time'] = Carbon::createFromFormat('d/m/Y', $request->start_time)->format('Y-m-d');
 
         empolyee::create($input);
+        
+        return redirect()->route('home');
+        notify()->success('Welcome to Laravel Notify ⚡️', 'My custom title');
 
-        return redirect()->route('home')->with('success', 'Product deleted successfully');
     }
 
+    
 
     public function showcreate()
     {
@@ -80,7 +95,9 @@ class UserController extends Controller
 
     public function show()
     {
+
         $empolyees = empolyee::all();
+
         return view('show', compact('empolyees')); //oder by 
     }
 
@@ -99,7 +116,7 @@ class UserController extends Controller
     {
         $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required|regex:/^[a-zA-Zก-๏\s]+$/u',
                 'card_num' => 'required|numeric|regex:/^\d{13}$/',
                 'tel' => 'required|numeric|regex:/^\d{10}$/|',
                 'depant_id' => 'required',
@@ -110,6 +127,7 @@ class UserController extends Controller
 
             [
                 'name.required' => 'กรุณาป้อนชื่อ',
+                'name.regex' => 'กรุณาป้อนชื่อเป็นตัวหนังสือเท่านั้น',
 
                 'card_num.required' => 'กรุณาป้อนเลขบัตรประชาชน',
                 'card_num.numeric' => 'กรุณาป้อนเลขบัตรประชาชนเป็นตัวเลขเท่านั้น',
@@ -132,16 +150,29 @@ class UserController extends Controller
             ]
         );
 
-        $input = $request->all();
-        unset($input['_token']);
+        $input = [
+            'name' => $request->name,
+            'card_num' => $request->card_num,
+            'user_id' => $request->user_id,
+            'tel' => $request->tel,
+            'depant_id' => $request->depant_id,
+            'branch_id' => $request->branch_id,
+            'start_time' => $request->start_time,
+            'address' => $request->address,
 
-        // dd($input);
-
+        ];
 
         $input['start_time'] = Carbon::createFromFormat('d/m/Y', $request->start_time)->format('Y-m-d');
     
         DB::table('empolyees')->where('id', $id)->update($input);
     
-        return view('home');
+        return redirect()->route('home');
     }
+
+    public function delete($id)
+        {
+            DB::table('empolyees')->where('id',$id)->delete();
+            return redirect()->route('home');
+        }
+
 }
