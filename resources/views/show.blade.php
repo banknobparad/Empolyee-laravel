@@ -10,7 +10,7 @@
                 </div>
                 <br>
 
-                <table class="table table-sm" id="myTable">
+                <table class="display" id="myTable">
                     <thead class="table-light ">
                         <tr>
                             <th scope="col">รหัสพนักงาน</th>
@@ -26,8 +26,8 @@
                             <tr>
                                 <th>{{ $item->user_id }}</th>
                                 <th>{{ $item->name }}</th>
-                                <td>{{ $item->depant_id }}</td>
-                                <td>{{ $item->branch_id }}</td>
+                                <td>{{ $item->depant->name }}</td>
+                                <td>{{ $item->branch->name }}</td>
                                 <td>
                                     <form action="{{ route('delete', $item->id) }}">
                                         <a href="{{ route('edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
@@ -53,11 +53,11 @@
         table#myTable {
             width: 100%;
             border-collapse: collapse;
-            border: 1px solid #000000;
+            border: 1px solid #564c4c;
         }
 
         thead th {
-            background-color: #000000;
+            background-color: #291414;
             color: #ffffff;
             text-align: center;
         }

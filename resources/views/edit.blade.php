@@ -2,7 +2,7 @@
 @section('title')
 @section('content')
 
-    <h2 class="text text-center py-3">แก้ไขข้อมูล</h2>
+    <h2 class="text text-center py-3"><i class="fa-solid fa-plus" style="color: #2bff00;"></i> แก้ไขข้อมูล</h2>
 
     <form action="{{ route('update', $edit->id) }}" method="POST">
 
@@ -28,10 +28,9 @@
                     <input type="text" name="name" id="nameInput"
                         class="form-control @error('name') is-invalid @enderror @if (!empty(old('name'))) is-valid @endif"
                         value="{{ old('name', $edit->name) }}" data-old-value="{{ old('title') }}">
-                        
+
                     <button type="button" onclick="myFunction()" class="btn btn-primary form-control-feedback">
-                        <i
-                            class="bi bi-clipboard">
+                        <i class="bi bi-clipboard">
                         </i>
                     </button>
                 </div>
@@ -45,7 +44,8 @@
             <div class="col-10">
                 <label for="user_id" class="form-label">รหัสพนักงาน</label>
                 <div class="input-group">
-                    <input id="user_id" type="text" value="{{ old('user_id', $edit->user_id) }}" name="user_id" class="form-control">
+                    <input id="user_id" type="text" value="{{ old('user_id', $edit->user_id) }}" name="user_id"
+                        class="form-control">
                     <button type="button" onclick="myFunctions()" class="btn btn-primary form-control-feedback"><i
                             class="bi bi-clipboard"></i></button>
                 </div>
@@ -82,11 +82,9 @@
                 <label for="depant_id" class="form-label">ตำแหน่ง</label>
                 <select name="depant_id"
                     class="form-control {{ old('depant_id') && $errors->has('depant_id') ? 'is-invalid' : (old('depant_id') ? 'is-valid' : '') }}">
-                    <option value="{{ $edit->depant_id }}" selected>
-                        {{ $edit->depant_id }}
-                    </option>
-                    @foreach ($depant as $item)
-                        <option value="{{ $item->name }}" {{ old('depant_id') == $item->id ? 'selected' : '' }}>
+
+                    @foreach ($depant_edit as $item)
+                        <option value="{{ $item->id }}" @selected($item->id == old('depant_id')) @selected($item->id == $edit->depant_id)>
                             {{ $item->name }}
                         </option>
                     @endforeach
@@ -100,18 +98,13 @@
 
 
 
-
-
             <div class="col-10">
                 <label for="branch_id" class="form-label">สาขา</label>
                 <select name="branch_id"
                     class="form-control {{ old('branch_id') && $errors->has('branch_id') ? 'is-invalid' : (old('branch_id') ? 'is-valid' : '') }}">
-                    <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
-                    <option value="{{ $edit->branch_id }}" selected>
-                        {{ $edit->branch_id }}
-                    </option>
-                    @foreach ($depant as $item)
-                        <option value="{{ $item->name }}" {{ old('branch_id') == $item->id ? 'selected' : '' }}>
+
+                    @foreach ($branches_edit as $item)
+                        <option value="{{ $item->id }}" @selected($item->id == old('branch_id')) @selected($item->id == $edit->branch_id)>
                             {{ $item->name }}
                         </option>
                     @endforeach
@@ -124,10 +117,12 @@
 
 
 
+
             <div class="col-10">
                 <label for="address" class="form-label">ที่อยู่</label>
-                <input type="text" value="{{ old('address', $edit->address) }}" name="address" class="form-control {{ $errors->has('address') ? 'is-invalid' : ($errors->any() ? 'is-valid' : '') }}">
-            
+                <input type="text" value="{{ old('address', $edit->address) }}" name="address"
+                    class="form-control {{ $errors->has('address') ? 'is-invalid' : ($errors->any() ? 'is-valid' : '') }}">
+
                 @error('address')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -136,15 +131,16 @@
 
             <div class="col-10">
                 <label for="start_time" class="form-label">วันที่เริ่มงาน</label>
-                <input type="text" name="start_time" class="form-control datepicker" value="{{ date('d-m-Y', strtotime($edit->start_time)) }}">
-              
+                <input type="text" name="start_time" class="form-control datepicker"
+                    value="{{ date('d-m-Y', strtotime($edit->start_time)) }}">
+
                 @error('start_time')
-                  <span class="text-danger">{{ $message }}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
-              </div>
-              
-              
-              
+            </div>
+
+
+
 
 
 

@@ -62,7 +62,7 @@
                     {{ $errors->has('depant_id') ? 'is-invalid' : (old('depant_id') ? 'is-valid' : '') }}">
                     <option value="" selected disabled>เลือกตำแหน่ง</option>
                     @foreach ($depant as $item)
-                        <option value="{{ $item->name }}" {{ old('depant_id') == $item->name ? 'selected' : '' }}>
+                        <option value="{{ $item->id }}" {{ old('depant_id') == $item->name ? 'selected' : '' }}>
                             {{ $item->name }}
                         </option>
                     @endforeach
@@ -88,7 +88,7 @@
                     {{ $errors->has('branch_id') ? 'is-invalid' : (old('branch_id') ? 'is-valid' : '') }}">
                     <option value="" selected disabled>เลือกสาขา</option>
                     @foreach ($depant as $item)
-                        <option value="{{ $item->name }}" {{ old('branch_id') == $item->name ? 'selected' : '' }}>
+                        <option value="{{ $item->id }}" {{ old('branch_id') == $item->name ? 'selected' : '' }}>
                             {{ $item->name }}
                         </option>
                     @endforeach

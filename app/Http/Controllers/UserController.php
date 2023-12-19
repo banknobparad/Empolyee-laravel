@@ -32,7 +32,7 @@ class UserController extends Controller
                 'name' => 'required|regex:/^[a-zA-Zก-๏\s]+$/u',
                 'card_num' => 'required|numeric|regex:/^\d{13}$/',
                 'tel' => 'required|numeric|regex:/^\d{10}$/|',
-                'depant_id' => 'required',
+                'depant_id' => 'required|exists:branches,id',
                 'branch_id' => 'required',
                 'start_time' => 'required',
                 'address' => 'required',
@@ -52,6 +52,7 @@ class UserController extends Controller
                 'tel.regex' => 'กรุณาป้อนเบอร์โทรเป็น 10 ตัวอักษร',
 
                 'depant_id.required' => 'กรุณาป้อนตำแหน่ง',
+                'depant_id.exists' => 'ข้อมูลไม่ถูกต้อง',
 
                 'branch_id.required' => 'กรุณาป้อนสาขา',
 
@@ -77,9 +78,10 @@ class UserController extends Controller
 
         empolyee::create($input);
         
-        return redirect()->route('home');
-        notify()->success('Welcome to Laravel Notify ⚡️', 'My custom title');
+        notify()->success('แจ้งเตือน ⚡️', 'เพิ่มข้อมูลสำเร็จ');
 
+        return redirect()->route('home');
+        
     }
 
     
@@ -95,21 +97,22 @@ class UserController extends Controller
 
     public function show()
     {
+        
+        $empolyees = empolyee::with('branch', 'depant')->get();
 
-        $empolyees = empolyee::all();
-
+        // dd($empolyees->toArray());
         return view('show', compact('empolyees')); //oder by 
     }
 
     public function edit($id)
     {
-        $depant = Depant::all();
-        $branches = Branch::all();
+        $depant_edit = Depant::all();
+        $branches_edit = Branch::all();
 
         $edit = empolyee::with('branch', 'depant')->findOrFail($id);
-        // dd($edit->toArray());
 
-        return view('edit', compact('edit', 'branches', 'depant'));
+        // dd($edit->toArray());
+        return view('edit', compact('edit', 'depant_edit', 'branches_edit'));
     }
 
     public function update(Request $request, $id)
@@ -119,7 +122,7 @@ class UserController extends Controller
                 'name' => 'required|regex:/^[a-zA-Zก-๏\s]+$/u',
                 'card_num' => 'required|numeric|regex:/^\d{13}$/',
                 'tel' => 'required|numeric|regex:/^\d{10}$/|',
-                'depant_id' => 'required',
+                'depant_id' => 'required|exists:branches,id',
                 'branch_id' => 'required',
                 'start_time' => 'required',
                 'address' => 'required',
@@ -139,6 +142,8 @@ class UserController extends Controller
                 'tel.regex' => 'กรุณาป้อนเบอร์โทรเป็น 10 ตัวอักษร',
 
                 'depant_id.required' => 'กรุณาป้อนตำแหน่ง',
+                'depant_id.exists' => 'ข้อมูลไม่ถูกต้อง',
+
 
                 'branch_id.required' => 'กรุณาป้อนสาขา',
 
@@ -161,6 +166,7 @@ class UserController extends Controller
             'address' => $request->address,
 
         ];
+        // dd($input);
 
         $input['start_time'] = Carbon::createFromFormat('d/m/Y', $request->start_time)->format('Y-m-d');
     
