@@ -2,10 +2,27 @@
 @section('title')
 @section('content')
 
-    <h2 class="text text-center py-3">เพิ่มข้อมูล</h2>
+<div class="text-center py-2">
+    <h2 class="text text-center py-3">เพิ่มข้อมูล <i class="fa-solid fa-plus" style="color: #2bff00;"></i></h2>  
+          <style>
+        h2 {
+            background-color: #282e3c;
+            /* หรือสามารถใช้ชื่อสี เช่น background-color: yellow; */
+            color: #ffffff;
+            /* สีตัวอักษรหรือตัวอักษรที่จะให้เห็นบนพื้นหลัง */
+            padding: 10px;
+            /* เพิ่มพื้นที่ขอบในข้อความ */
+            display: inline-block;
+            border: 4px solid #242424;
+            border-radius: 15px;
+        }
+    </style>
+</div>
 
     <form action="{{ route('create') }}" method="post">
         @csrf
+
+        <div class="card py-5"  >
 
         <div class="row g-2 justify-content-center">
 
@@ -129,6 +146,7 @@
             <div class="col-10 py-3 text-end mb-5">
                 <button type="submit" class="btn btn-primary pull-right">บันทึก</button>
             </div>
+        </div>
         </div>
     </form>
 

@@ -5,7 +5,7 @@
     <div class="container py-4">
 
         <div class="text-center py-2">
-            <h1>โชว์ข้อมูล <i class="fa-solid fa-user" style="color: #2bff00;"></i></h1>
+            <h1>โชว์ข้อมูล</h1>
             <style>
                 h1 {
                     background-color: #282e3c;
@@ -77,7 +77,7 @@
         .dataTables_wrapper .dataTables_filter {
             float: none;
             text-align: end;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             /* เพิ่มระยะห่างด้านล่าง */
         }
     </style>
@@ -114,11 +114,7 @@
         });
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
-    
+
     <script>
         new DataTable('#example', {
             responsive: true
